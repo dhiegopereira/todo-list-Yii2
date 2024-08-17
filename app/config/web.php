@@ -50,14 +50,24 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'task' => 'site/task', // Defina a rota para a tarefa
+                'signup' => 'site/signup', // Defina a rota para o cadastro
+                'login' => 'site/login', // Defina a rota para o login
+                // Se quiser definir uma rota principal, defina a URL de entrada como login
+                '' => 'site/signup', // A rota padrão será a página de login
             ],
         ],
-        */
+        'session' => [
+            'class' => 'yii\web\Session',
+            'timeout' => 3600,
+            'cookieParams' => [
+                'httpOnly' => true,
+            ],
+        ],
     ],
     'params' => $params,
 ];

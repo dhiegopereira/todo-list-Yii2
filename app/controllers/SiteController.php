@@ -9,6 +9,8 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\SignupForm;
+
 
 class SiteController extends Controller
 {
@@ -80,6 +82,9 @@ class SiteController extends Controller
             return $this->goBack();
         }
 
+        Yii::$app->session->setFlash('error', 'Incorrect username or password.');
+
+
         $model->password = '';
         return $this->render('login', [
             'model' => $model,
@@ -124,5 +129,19 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function actionSignup()
+    {
+        $model = new SignupForm();
+
+        if ($model->load(Yii::$app->request->post()) && $model->signup()) {
+            Yii::$app->session->setFlash('signupSuccess', 'Thank you for signing up. You can now login.');
+            return $this->render('signup');
+        }
+
+        return $this->render('signup', [
+            'model' => $model,
+        ]);
     }
 }

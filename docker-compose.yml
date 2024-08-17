@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   app:
     image: composer
@@ -11,7 +9,7 @@ services:
       - "8080:8080"
     expose:
       - 8080
-    command: sh -c 'composer install && php -S 0.0.0.0:8080 -t web'
+    command: sh -c 'docker-php-ext-install pdo_mysql && composer install && php -S 0.0.0.0:8080 -t web'
     depends_on:
       - db
 
