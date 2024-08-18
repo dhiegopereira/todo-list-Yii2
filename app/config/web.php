@@ -30,6 +30,7 @@ $config = [
         'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
+            'identityCookie' => ['name' => '_identity', 'httpOnly' => true],
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -54,10 +55,10 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                'task' => 'site/index', // Defina a rota para a tarefa
-                'signup' => 'site/index', // Defina a rota para o cadastro
-                'login' => 'site/login', // Defina a rota para o login
-                '' => 'site/task', // A rota padrão será a página de login
+                '' => 'login/index',             // Página inicial
+                'login' => 'login/index',         // Ação de logout
+                'signup' => 'sign-up/index',      // Página de cadastro
+                'tasks' => 'task/index',          // Página de tarefas
             ],
         ],
         'session' => [

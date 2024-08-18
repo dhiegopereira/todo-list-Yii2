@@ -33,27 +33,27 @@ $this->params['breadcrumbs'][] = $this->title;
                     'id' => 'signup-form',
                     'fieldConfig' => [
                         'template' => "{label}\n{input}\n{error}",
-                        'labelOptions' => ['class' => 'col-lg-1 col-form-label mr-lg-3'],
-                        'inputOptions' => ['class' => 'col-lg-3 form-control'],
-                        'errorOptions' => ['class' => 'col-lg-7 invalid-feedback'],
+                        'labelOptions' => ['class' => 'col-lg-4 col-form-label'],
+                        'inputOptions' => ['class' => 'col-lg-8 form-control'],
+                        'errorOptions' => ['class' => 'col-lg-12 invalid-feedback'],
                     ],
                 ]); ?>
 
-                <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+                <?= $form->field($model, 'username')->textInput(['autofocus' => true])->label('Usuário') ?>
 
-                <?= $form->field($model, 'email')->textInput(['type' => 'email']) ?>
+                <?= $form->field($model, 'email')->textInput(['type' => 'email'])->label('Email') ?>
 
-                <?= $form->field($model, 'password')->passwordInput() ?>
+                <?= $form->field($model, 'password')->passwordInput()->label('Senha') ?>
 
                 <div class="form-group">
                     <div>
-                        <?= Html::submitButton('Signup', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+                        <?= Html::submitButton('Cadastrar', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
                     </div>
                 </div>
 
                 <?php ActiveForm::end(); ?>
 
-                <p>Already have an account? <?= Html::a('Login here', ['login']) ?>.</p>
+                <p>Já tem uma conta? <?= Html::a('Faça login aqui', ['/login']) ?>.</p>
 
             </div>
         </div>

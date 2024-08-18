@@ -5,7 +5,7 @@ use yii\db\Migration;
 /**
  * Handles the creation of table `{{%task}}`.
  */
-class m240817_163630_create_task_table extends Migration
+class m240818_173134_create_task_table extends Migration
 {
     /**
      * {@inheritdoc}
@@ -17,7 +17,6 @@ class m240817_163630_create_task_table extends Migration
             'user_id' => $this->integer()->notNull(),
             'title' => $this->string()->notNull(),
             'description' => $this->text(),
-            'due_date' => $this->dateTime(),
             'status' => "ENUM('pending', 'in_progress', 'completed') DEFAULT 'pending'",
             'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
             'updated_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
@@ -27,7 +26,7 @@ class m240817_163630_create_task_table extends Migration
             'fk-task-user_id',
             'task',
             'user_id',
-            'user',
+            '{{%user}}',  
             'id',
             'CASCADE'
         );

@@ -2,7 +2,6 @@
 
 namespace app\models;
 
-use Yii;
 use yii\base\Model;
 use app\models\User;
 
@@ -12,9 +11,6 @@ class SignupForm extends Model
     public $email;
     public $password;
 
-    /**
-     * {@inheritdoc}
-     */
     public function rules()
     {
         return [
@@ -27,15 +23,10 @@ class SignupForm extends Model
         ];
     }
 
-    /**
-     * Signs user up.
-     *
-     * @return User|null the saved model or null if saving fails
-     */
     public function signup()
     {
         if (!$this->validate()) {
-            return null;
+            return false;
         }
 
         $user = new User();

@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use yii\web\Controller;
 use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use app\models\LoginForm;
 
 class LoginController extends Controller
@@ -14,31 +15,37 @@ class LoginController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['logout', 'tasks'],
+                'only' => ['logout'],
                 'rules' => [
                     [
-                        'actions' => ['tasks'],
+                        'actions' => ['logout'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
                 ],
             ],
+            'verbs' => [
+                'class' => VerbFilter::class,
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
         ];
     }
 
-    public function actionLogin()
+    public function actionIndex()
     {
         if (!Yii::$app->user->isGuest) {
-            return $this->redirect(['site/tasks']);
+            return $this->redirect(['task/index']);
         }
 
         $model = new LoginForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->redirect(['site/tasks']);
+            return $this->redirect(['task/index']);
         }
 
-        return $this->render('login', [
+        return $this->render('index', [
             'model' => $model,
         ]);
     }
@@ -46,13 +53,6 @@ class LoginController extends Controller
     public function actionLogout()
     {
         Yii::$app->user->logout();
-
-        return $this->redirect(['site/login']);
-    }
-
-    public function actionTasks()
-    {
-        // Aqui você irá renderizar a view das tarefas
-        return $this->render('tasks');
+        return $this->redirect(['login/index']);
     }
 }
