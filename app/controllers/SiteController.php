@@ -5,11 +5,11 @@ namespace app\controllers;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
-use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
-use app\models\ContactForm;
 use app\models\SignupForm;
+use app\models\Task;
+use app\models\TaskList;
 
 
 class SiteController extends Controller
@@ -56,21 +56,11 @@ class SiteController extends Controller
         ];
     }
 
-    /**
-     * Displays homepage.
-     *
-     * @return string
-     */
     public function actionIndex()
     {
         return $this->render('index');
     }
 
-    /**
-     * Login action.
-     *
-     * @return Response|string
-     */
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
@@ -82,53 +72,17 @@ class SiteController extends Controller
             return $this->goBack();
         }
 
-        Yii::$app->session->setFlash('error', 'Incorrect username or password.');
-
-
         $model->password = '';
         return $this->render('login', [
             'model' => $model,
         ]);
     }
 
-    /**
-     * Logout action.
-     *
-     * @return Response
-     */
     public function actionLogout()
     {
         Yii::$app->user->logout();
 
         return $this->goHome();
-    }
-
-    /**
-     * Displays contact page.
-     *
-     * @return Response|string
-     */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Displays about page.
-     *
-     * @return string
-     */
-    public function actionAbout()
-    {
-        return $this->render('about');
     }
 
     public function actionSignup()
@@ -144,4 +98,43 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+
+    public function actionTask()
+    {
+        // Verifica se o usuário está logado
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['site/login']); // Redireciona para o login se o usuário não estiver logado
+        }
+
+        // Obtém o ID do usuário logado
+        $userId = Yii::$app->user->id;
+
+        // Cria uma nova instância do modelo TaskList
+        $model = new TaskList();
+
+        // Se o formulário foi enviado e os dados foram carregados no modelo
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            // Aqui você pode salvar a tarefa no banco de dados
+            // (Isso seria feito em um modelo de ActiveRecord, que não está presente neste exemplo)
+
+            // Exemplo: salvando a tarefa (supondo que você tenha um modelo de ActiveRecord para as tarefas)
+            // $task = new Task();
+            // $task->user_id = $userId;
+            // $task->title = $model->task;
+            // $task->due_date = $model->dueDate;
+            // $task->priority = $model->priority;
+            // $task->status = $model->status;
+            // $task->save();
+
+            // Flash message para indicar sucesso
+            Yii::$app->session->setFlash('taskAdded', 'Task added successfully.');
+        }
+
+        // Renderiza a view 'task' com o modelo
+        return $this->render('task', [
+            'model' => $model,
+        ]);
+    }
+
+
 }

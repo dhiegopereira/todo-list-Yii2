@@ -54,11 +54,10 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                'task' => 'site/task', // Defina a rota para a tarefa
-                'signup' => 'site/signup', // Defina a rota para o cadastro
+                'task' => 'site/index', // Defina a rota para a tarefa
+                'signup' => 'site/index', // Defina a rota para o cadastro
                 'login' => 'site/login', // Defina a rota para o login
-                // Se quiser definir uma rota principal, defina a URL de entrada como login
-                '' => 'site/signup', // A rota padrão será a página de login
+                '' => 'site/task', // A rota padrão será a página de login
             ],
         ],
         'session' => [

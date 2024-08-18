@@ -7,13 +7,13 @@
 use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Html;
 
-$this->title = 'Signup';
+$this->title = 'Cadastrar';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-signup">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to signup:</p>
+    <p>Por favor, preencha os seguintes campos para se cadastrar:</p>
 
     <?php if (Yii::$app->session->hasFlash('signupSuccess')): ?>
         <div class="alert alert-success">
@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <script>
             setTimeout(function () {
                 window.location.href = '<?= \yii\helpers\Url::to(['login']) ?>';
-            }, 5000); // 5000 milliseconds = 5 seconds
+            }, 5000);
         </script>
     <?php else: ?>
 
@@ -52,6 +52,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
 
                 <?php ActiveForm::end(); ?>
+
+                <p>Already have an account? <?= Html::a('Login here', ['login']) ?>.</p>
 
             </div>
         </div>

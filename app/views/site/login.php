@@ -45,9 +45,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?php ActiveForm::end(); ?>
 
-            <div style="color:#999;">
-                You may login with <strong>admin/admin</strong> or <strong>demo/demo</strong>.<br>
-                To modify the username/password, please check out the code <code>app\models\User::$users</code>.
+            <div class="mt-3">
+                <p>Don't have an account? <?= Html::a('Sign up here', ['site/signup']) ?>.</p>
             </div>
 
         </div>
