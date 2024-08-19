@@ -41,8 +41,8 @@ jobs:
       - name: Create Database
         run: |
           mysql -u root
-          UPDATE mysql.user SET Password=PASSWORD("yii2password") WHERE User="yii2user";
-          CREATE DATABASE IF NOT EXISTS yii2db;
+          UPDATE mysql.user SET Password="root" WHERE User="root";
+          CREATE DATABASE IF NOT EXISTS totolist;
 
       - name: Run Migrations
         working-directory: ./app
