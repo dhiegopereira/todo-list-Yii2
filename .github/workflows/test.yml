@@ -37,11 +37,10 @@ jobs:
         run: |
             sudo apt-get install -y mysql-server
             sudo service mysql start
-            mysqladmin -u root -proot ping
 
       - name: Create Database
         run: |
-          mysql -u root -proot -e "CREATE DATABASE IF NOT EXISTS totolist;"
+          mysql -u root -proot -e "CREATE DATABASE IF NOT EXISTS yii2db;"
 
       - name: Verify MySQL Installation
         run: |
