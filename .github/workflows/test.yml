@@ -45,11 +45,7 @@ jobs:
         working-directory: ./app
         run: composer install
 
-      - name: Run Migrations
-        env:
-          DB_DSN: mysql:host=127.0.0.1;dbname=yii2db
-          DB_USER: yii2user
-          DB_PASSWORD: yii2password
+      - name: Run Migrations       
         working-directory: ./app
         run: |          
           php yii migrate --interactive=0
