@@ -45,6 +45,10 @@ jobs:
         working-directory: ./app
         run: composer install
 
+      - name: Update DB Host in Config
+        run: |
+          sed -i 's/host=db/host=127.0.0.1/' ./app/config/db.php
+
       - name: Run Migrations       
         working-directory: ./app
         run: |          
