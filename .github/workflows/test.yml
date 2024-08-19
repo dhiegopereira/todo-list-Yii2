@@ -25,12 +25,13 @@ jobs:
 
       - name: Install Composer
         run: |
-          curl -sS https://getcomposer.org/installer | php
+          php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+          php -r "if (hash_file('sha384', 'composer-setup.php') === '1a...') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+          php composer-setup.php
+          php -r "unlink('composer-setup.php');"
           sudo mv composer.phar /usr/local/bin/composer
-          composer --version
 
       - name: Install dependencies
-        working-directory: ./app
         run: composer install
 
       - name: Setup MySQL
@@ -41,11 +42,9 @@ jobs:
           mysql -e "CREATE DATABASE IF NOT EXISTS my_database;"
 
       - name: Run Migrations
-        working-directory: ./app
         run: |
           php yii migrate --interactive=0
 
       - name: Test
-        working-directory: ./app
         run: |
           php vendor/bin/codecept run
