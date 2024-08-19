@@ -8,7 +8,7 @@ use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Html;
 use yii\web\YiiAsset;
 
-$this->title = 'Teste';
+$this->title = 'Entrar';
 $this->params['breadcrumbs'][] = $this->title;
 
 YiiAsset::register($this);
