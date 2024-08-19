@@ -14,6 +14,18 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root_password
+          MYSQL_DATABASE: yii2db
+          MYSQL_USER: yii2user
+          MYSQL_PASSWORD: yii2password
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping --silent" --health-interval=10s --health-timeout=5s --health-retries=5
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -33,20 +45,11 @@ jobs:
         working-directory: ./app
         run: composer install
 
-      - name: Setup MySQL
-        run: |
-            sudo apt-get install -y mysql-server
-            sudo service mysql start
-
-      - name: Create Database
-        run: |
-          mysql -u root -proot -e "CREATE DATABASE IF NOT EXISTS yii2db;"
-
-      - name: Verify MySQL Installation
-        run: |
-          mysqladmin -u root -proot ping
-
       - name: Run Migrations
+        env:
+          DB_DSN: mysql:host=127.0.0.1;dbname=yii2db
+          DB_USER: yii2user
+          DB_PASSWORD: yii2password
         working-directory: ./app
         run: |          
           php yii migrate --interactive=0
