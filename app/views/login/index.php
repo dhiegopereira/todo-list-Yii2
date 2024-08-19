@@ -46,7 +46,7 @@ if (Yii::$app->session->hasFlash('loginSuccess')) {
             <?php ActiveForm::end(); ?>
 
             <div class="mt-3">
-                <p>Não tem uma conta? <?= Html::a('Inscreva-se aqui', ['/sign-up']) ?>.</p>
+                <p>Não tem uma conta? <?= Html::a('Inscreva-se aqui', ['/signup']) ?>.</p>
             </div>
         </div>
     </div>

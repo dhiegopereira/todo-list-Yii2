@@ -6,7 +6,7 @@ use Yii;
 use yii\web\Controller;
 use app\models\SignupForm;
 
-class SignUpController extends Controller
+class SignupController extends Controller
 {
     public function actionIndex()
     {

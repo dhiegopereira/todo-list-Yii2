@@ -26,7 +26,6 @@ $config = [
             ],
         ],
         'request' => [
-            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'f6r_SsGpROVdaNRZNhIttzf6RUw6m_7b',
         ],
         'cache' => [
@@ -43,7 +42,6 @@ $config = [
         'mailer' => [
             'class' => \yii\symfonymailer\Mailer::class,
             'viewPath' => '@app/mail',
-            // send all mails to a file by default.
             'useFileTransport' => true,
         ],
         'log' => [
@@ -60,10 +58,10 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                '' => 'login/index',             // Página inicial
-                'login' => 'login/index',         // Ação de logout
-                'signup' => 'sign-up/index',      // Página de cadastro
-                'tasks' => 'task/index',          // Página de tarefas
+                '' => 'login/index',            
+                'login' => 'login/index',       
+                'signup' => 'signup/index',     
+                'tasks' => 'task/index',        
             ],
         ],
         'session' => [
@@ -78,19 +76,14 @@ $config = [
 ];
 
 if (YII_ENV_DEV) {
-    // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',
-        // uncomment the following to add your IP if you are not connecting from localhost.
-        //'allowedIPs' => ['127.0.0.1', '::1'],
     ];
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
-        // uncomment the following to add your IP if you are not connecting from localhost.
-        //'allowedIPs' => ['127.0.0.1', '::1'],
     ];
 }
 

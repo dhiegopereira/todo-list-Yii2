@@ -4,7 +4,7 @@ class SignupFormCest
 {
     public function _before(\FunctionalTester $I)
     {
-        $I->amOnRoute('sign-up');      
+        $I->amOnRoute('signup');      
     }
 
     public function openTasksPage(\FunctionalTester $I)
