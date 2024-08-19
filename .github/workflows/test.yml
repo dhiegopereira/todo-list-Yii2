@@ -40,6 +40,7 @@ jobs:
           mysql -e "CREATE DATABASE IF NOT EXISTS yii2db;"
           mysql -e "CREATE USER IF NOT EXISTS 'yii2user'@'localhost' IDENTIFIED BY 'yii2password';"
           mysql -e "GRANT ALL PRIVILEGES ON yii2db.* TO 'yii2user'@'localhost';"
+          mysql -e "FLUSH PRIVILEGES;"
 
       - name: Run Migrations
         working-directory: ./app
