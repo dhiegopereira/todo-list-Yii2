@@ -40,6 +40,8 @@ jobs:
 
       - name: Create Database
         run: |
+          mysql -u root
+          mysqladmin -u root password yii2dbpassword
           mysql -e "CREATE DATABASE IF NOT EXISTS yii2db;"
 
       - name: Run Migrations
