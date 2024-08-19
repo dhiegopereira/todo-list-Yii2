@@ -6,10 +6,18 @@
 
 use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Html;
+use yii\web\YiiAsset;
 
 $this->title = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
+
+YiiAsset::register($this);
+
+if (Yii::$app->session->hasFlash('loginSuccess')) {
+    $this->registerJs("window.location.href = '" . Yii::$app->urlManager->createUrl('task/index') . "';");
+}
 ?>
+
 <div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -30,8 +38,6 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= $form->field($model, 'username')->textInput(['autofocus' => true])->label('Usuário') ?>
 
             <?= $form->field($model, 'password')->passwordInput()->label('Senha') ?>
-
-            <?= $form->field($model, 'rememberMe')->checkbox(['label' => 'Lembrar-me']) ?>
 
             <div class="form-group">
                 <?= Html::submitButton('Entrar', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>

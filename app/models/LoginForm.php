@@ -59,17 +59,16 @@ class LoginForm extends Model
      * @return bool whether the user is logged in successfully
      */
     public function login()
-    {
-        if ($this->validate()) {
-            // Loga o usuário
-            Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
+{
+    if ($this->validate()) {
+        Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
 
-            // Redireciona para a página de tarefas
-            return Yii::$app->response->redirect(['task/index']);
-        }
-
-        return false;
+        return true;
     }
+
+    return false;
+}
+
 
     /**
      * Finds user by [[username]]

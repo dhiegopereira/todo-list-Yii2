@@ -50,6 +50,21 @@ class LoginController extends Controller
         ]);
     }
 
+    public function actionLogin()
+{
+    $model = new LoginForm();
+
+    if ($model->load(Yii::$app->request->post()) && $model->login()) {
+        Yii::$app->session->setFlash('loginSuccess');
+        return $this->redirect(['task/index']);
+    }
+
+    return $this->render('login', [
+        'model' => $model,
+    ]);
+}
+
+
     public function actionLogout()
     {
         Yii::$app->user->logout();
