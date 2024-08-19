@@ -21,7 +21,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'  # Defina a versão do PHP conforme necessário
+          php-version: '8.2'
 
       - name: Install Composer
         run: |
@@ -30,6 +30,7 @@ jobs:
           composer --version
 
       - name: Install dependencies
+        working-directory: ./app
         run: composer install
 
       - name: Setup MySQL
@@ -40,9 +41,11 @@ jobs:
           mysql -e "CREATE DATABASE IF NOT EXISTS my_database;"
 
       - name: Run Migrations
+        working-directory: ./app
         run: |
           php yii migrate --interactive=0
 
       - name: Test
+        working-directory: ./app
         run: |
           php vendor/bin/codecept run
