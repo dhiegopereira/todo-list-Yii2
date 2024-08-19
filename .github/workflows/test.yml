@@ -25,11 +25,9 @@ jobs:
 
       - name: Install Composer
         run: |
-          php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-          php -r "if (hash_file('sha384', 'composer-setup.php') === '1a...') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
-          php composer-setup.php
-          php -r "unlink('composer-setup.php');"
+          curl -sS https://getcomposer.org/installer | php
           sudo mv composer.phar /usr/local/bin/composer
+          composer --version
 
       - name: Install dependencies
         working-directory: ./app
