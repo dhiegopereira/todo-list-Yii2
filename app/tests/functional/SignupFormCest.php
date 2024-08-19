@@ -4,56 +4,39 @@ class SignupFormCest
 {
     public function _before(\FunctionalTester $I)
     {
-        $I->amOnRoute('login');
-        $I->submitForm('#login-form', [
-            'LoginForm[username]' => 'diego',
-            'LoginForm[password]' => '123456',
-        ]);
+        $I->amOnRoute('sign-up');      
     }
 
     public function openTasksPage(\FunctionalTester $I)
     {
-        $I->see('Logout (diego)');
-        $I->see('Gerenciamento de Tarefas');
+        $I->see('Criar conta');
     }
 
-    public function createTask(\FunctionalTester $I)
+    public function signupWithEmptyCredentials(\FunctionalTester $I)
     {
-        $I->submitForm('#task-form', [
-            'Task[title]' => 'Teste',
-            'Task[description]' => 'Teste de descrição',
-        ]);
-        $I->see('Teste');
-        $I->see('Teste de descrição');
+        $I->click('Cadastrar');
+        $I->see('Username cannot be blank.');
+        $I->see('Email cannot be blank.');
+        $I->see('Password cannot be blank.');
     }
 
-    public function updateTask(\FunctionalTester $I)
+    public function signupWithWrongCredentials(\FunctionalTester $I)
     {
-        $I->submitForm('#task-form', [
-            'Task[title]' => 'Teste',
-            'Task[description]' => 'Teste de descrição',
+        $I->submitForm('#signup-form', [
+            'SignupForm[username]' => 'teste',
+            'SignupForm[email]' => 'teste@exemplo.com',
+            'SignupForm[password]' => '123',
         ]);
-     
-        $I->click(['link' => 'Editar']); 
-        $I->submitForm('#task-form', [
-            'Task[title]' => 'Teste Atualizado',
-            'Task[description]' => 'Teste de descrição atualizado',
-        ]);
-        $I->see('Teste Atualizado');
-        $I->see('Teste de descrição atualizado');
+        $I->see('Password should contain at least 6 characters.');
     }
 
-    public function deleteTask(\FunctionalTester $I)
+    public function signupSuccessfully(\FunctionalTester $I)
     {
-        $I->submitForm('#task-form', [
-            'Task[title]' => 'Teste',
-            'Task[description]' => 'Teste de descrição',
+        $I->submitForm('#signup-form', [
+            'SignupForm[username]' => 'teste',
+            'SignupForm[email]' => 'teste@exemplo.com',
+            'SignupForm[password]' => '123456',
         ]);
-        $I->see('Teste');
-        $I->see('Teste de descrição');
-        
-        $I->click(['link' => 'Excluir']); 
-        $I->dontSee('Teste Atualizado');
-        $I->dontSee('Teste de descrição atualizado');
+        $I->see('Login');
     }
 }

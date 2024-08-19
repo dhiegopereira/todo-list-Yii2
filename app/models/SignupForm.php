@@ -18,15 +18,15 @@ class SignupForm extends Model
             ['email', 'email'],
             ['username', 'string', 'min' => 2, 'max' => 255],
             ['password', 'string', 'min' => 6],
-            ['email', 'unique', 'targetClass' => User::class, 'message' => 'This email address has already been taken.'],
-            ['username', 'unique', 'targetClass' => User::class, 'message' => 'This username has already been taken.'],
+            ['email', 'unique', 'targetClass' => User::class, 'message' => 'O email já está em uso.'],
+            ['username', 'unique', 'targetClass' => User::class, 'message' => 'Este nome de usuário já está em uso.'],
         ];
     }
 
     public function signup()
     {
         if (!$this->validate()) {
-            return false;
+            return null;
         }
 
         $user = new User();

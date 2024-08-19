@@ -39,10 +39,10 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
             'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top']
         ]);
         echo Nav::widget([
-            'options' => ['class' => 'navbar-nav ms-auto'], // Alinha os itens à direita
+            'options' => ['class' => 'navbar-nav ms-auto'], 
             'items' => [
                 !Yii::$app->user->isGuest ? (
-                    '<li class="nav-item">'
+                    '<li #logout class="nav-item">'
                     . Html::beginForm(['/task/logout'], 'post', ['class' => 'form-inline'])
                     . Html::submitButton(
                         'Logout (' . Yii::$app->user->identity->username . ')',

@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use Yii;
 use yii\db\ActiveRecord;
 use yii\web\NotFoundHttpException;
 
@@ -24,9 +25,9 @@ class Task extends ActiveRecord
         ];
     }
 
-    public static function findAllTasks()
+    public static function findAllTasksByUser()
     {
-        return self::find()->all();
+        return self::find()->where(['user_id' => Yii::$app->user->id])->all();
     }
 
     public static function findTaskById($id)
@@ -35,19 +36,21 @@ class Task extends ActiveRecord
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException('A página solicitada não existe.');
     }
 
     public function createTask()
     {
-        $task = new Task();
-        $task->title = $this->title;
-        $task->description = $this->description;
-        $task->status = $this->status;
-        $task->user_id = $this->user_id;
+        $this->user_id = Yii::$app->user->id;
 
-        return $task->save();
+        if ($this->save()) {
+            return true;
+        } else {
+            Yii::error('Erro ao criar tarefa: ' . json_encode($this->errors));
+            return false;
+        }
     }
+
     public function updateTask()
     {
         $model = self::findOne($this->id);

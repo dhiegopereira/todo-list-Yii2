@@ -17,7 +17,7 @@ class SignUpController extends Controller
         $model = new SignupForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-            Yii::$app->session->setFlash('signupSuccess', 'Thank you for signing up. You can now login.');
+            Yii::$app->session->setFlash('signupSuccess', 'Obrigado por se cadastrar! Faça login para acessar o sistema.');
             return $this->redirect(['login/index']);
         }
 

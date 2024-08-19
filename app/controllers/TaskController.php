@@ -17,7 +17,7 @@ class TaskController extends Controller
         }
 
         $model = new Task();
-        $tasks = Task::findAllTasks();
+        $tasks = Task::findAllTasksByUser();
 
         return $this->render('index', [
             'model' => $model,
@@ -28,14 +28,13 @@ class TaskController extends Controller
     public function actionCreate()
     {
         $model = new Task();
-        $model->user_id = Yii::$app->user->id;
 
         if ($model->load(Yii::$app->request->post()) && $model->createTask()) {
-            Yii::$app->session->setFlash('taskSuccess', 'Task has been added successfully.');
+            Yii::$app->session->setFlash('taskSuccess', 'Tarefa adicionada com sucesso.');
             return $this->redirect(['index']);
         } else {
-            Yii::$app->session->setFlash('taskError', 'Error adding task.');
-            $tasks = Task::findAllTasks();
+            Yii::$app->session->setFlash('taskError', 'Error ao adicionar tarefa.');
+            $tasks = Task::findAllTasksByUser();
             return $this->render('index', [
                 'model' => $model,
                 'tasks' => $tasks,
@@ -45,11 +44,11 @@ class TaskController extends Controller
 
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
-        $tasks = Task::findAllTasks();
+        $model = Task::findOne($id);
+        $tasks = Task::findAllTasksByUser();
 
         if ($model->load(Yii::$app->request->post()) && $model->updateTask()) {
-            Yii::$app->session->setFlash('taskSuccess', 'Task has been updated successfully.');
+            Yii::$app->session->setFlash('taskSuccess', 'Tarefa atualizada com sucesso.');
             return $this->redirect(['index']);
         }
 
@@ -80,17 +79,6 @@ class TaskController extends Controller
         return $this->redirect(['index']);
     }
 
-
-
-
-    protected function findModel($id)
-    {
-        if (($model = Task::findOne($id)) !== null) {
-            return $model;
-        }
-
-        throw new \yii\web\NotFoundHttpException('The requested page does not exist.');
-    }
 
     public function actionLogout()
     {

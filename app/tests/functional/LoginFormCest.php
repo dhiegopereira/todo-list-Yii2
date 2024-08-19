@@ -5,11 +5,18 @@ class LoginFormCest
     public function _before(\FunctionalTester $I)
     {
         $I->amOnRoute('login');
+
+        $user = new \app\models\User();
+        $user->username = 'teste';
+        $user->email = 'teste@exemplo.com';
+        $user->setPassword('123456');
+        $user->generateAuthKey();
+        $user->save();
     }
 
     public function openLoginPage(\FunctionalTester $I)
     {
-        $I->see('Login', 'h1');
+        $I->see('Entrar', 'h1');
     }
 
     public function loginWithEmptyCredentials(\FunctionalTester $I)
@@ -24,19 +31,29 @@ class LoginFormCest
     public function loginWithWrongCredentials(\FunctionalTester $I)
     {
         $I->submitForm('#login-form', [
-            'LoginForm[username]' => 'diego',
-            'LoginForm[password]' => 'wrong',
+            'LoginForm[username]' => 'teste',
+            'LoginForm[password]' => 'senha_errada',
         ]);
-        $I->see('Incorrect username or password.');
+        $I->see('Usuário ou senha inválido.');
     }
 
 
     public function loginSuccessfully(\FunctionalTester $I)
     {
         $I->submitForm('#login-form', [
-            'LoginForm[username]' => 'diego',
+            'LoginForm[username]' => 'teste',
             'LoginForm[password]' => '123456',
         ]);
-        $I->see('Logout (diego)');
+        $I->see('Logout (teste)');
+    }
+
+    public function logout(\FunctionalTester $I)
+    {
+        $I->submitForm('#login-form', [
+            'LoginForm[username]' => 'teste',
+            'LoginForm[password]' => '123456',
+        ]);
+        $I->click('.logout');
+        $I->seeInCurrentUrl('/');
     }
 }
