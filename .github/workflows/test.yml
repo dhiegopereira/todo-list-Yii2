@@ -48,8 +48,8 @@ jobs:
 
       - name: Run Migrations
         working-directory: ./app
-        run: |
-          php yii migrate --interactive=0
+        run: |          
+          tests/bin/yii migrate --interactive=0
 
       - name: Test
         working-directory: ./app
