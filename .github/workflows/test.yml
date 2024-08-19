@@ -47,6 +47,7 @@ jobs:
           mysqladmin -u root -proot ping
 
       - name: Add Execution Permission
+        working-directory: ./app
         run: |
           chmod +x tests/bin/yii
 
