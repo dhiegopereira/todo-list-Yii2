@@ -46,6 +46,10 @@ jobs:
         run: |
           mysqladmin -u root -proot ping
 
+      - name: Add Execution Permission
+        run: |
+          chmod +x tests/bin/yii
+
       - name: Run Migrations
         working-directory: ./app
         run: |          
