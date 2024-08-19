@@ -34,11 +34,13 @@ jobs:
         run: composer install
 
       - name: Setup MySQL
-        run: sudo apt-get install -y mysql-server
+        run: |
+          sudo apt-get install -y mysql-server
+          sudo service mysql start
 
       - name: Create Database
         run: |
-          mysql -e "CREATE DATABASE IF NOT EXISTS my_database;"
+          mysql -e "CREATE DATABASE IF NOT EXISTS yii2db;"
 
       - name: Run Migrations
         working-directory: ./app
