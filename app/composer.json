@@ -1,5 +1,6 @@
 {
     "name": "yiisoft/yii2-app-basic",
+    "version": "1.0.0",
     "description": "Yii 2 Basic Project Template",
     "keywords": ["yii2", "framework", "basic", "project template"],
     "homepage": "https://www.yiiframework.com/",
