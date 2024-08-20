@@ -79,7 +79,7 @@ Acesse clicando [aqui](./app/config/db.php)
 #### Executar os testes
 
 ```cmd
-endor/bin/codecept run
+vendor/bin/codecept run
 ```
 
 ---
